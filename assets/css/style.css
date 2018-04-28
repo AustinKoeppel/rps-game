@@ -6,26 +6,53 @@ body{
     background-repeat: no-repeat;
     background-position-x: center;
 }
-img{
+.banner{
+    margin: 1% 30%;
+    float: none;
+    max-width: 200%;
+    width: 40%;
     max-height: 70%;
+
+}
+img{
+    max-height: 12vh;
+    max-width: 10vw;
     float: right;
-    padding: 2% 8%;
+    position: relative;
+    right:0;
 }
 h1{
-    font-size: 4em;
+    font-size: 180%;
     float: left;
     padding-left: 2%;
 }
-div {
+.container{
+    overflow: auto;
+}
+.button {
     width: 95%;
-    height: 80px;
+    height: 12vh;
+    line-height: 12vh;
     margin: 2% 2.5%;
     background-color: rgb(0,151,236); 
     border:solid 2px white;
+    position: relative;
+    overflow: visible;
 }
 section{
+    float: left;
     background-color: white;
-    width: 40%; 
+    width: 32%; 
     position: relative;
-    margin: 8vh 30%;
+    margin: 8vh 34%;
+}
+@media (max-width: 640px) 
+{
+    img{
+        display: none;
+    }
+    h1{
+        text-align: center;
+        float: none;
+    }
 }
