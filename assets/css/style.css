@@ -17,9 +17,15 @@ h1{
     padding-left: 2%;
 }
 div {
-    width: 30%;
-    margin: 2vh 35%;
+    width: 95%;
     height: 80px;
+    margin: 2% 2.5%;
     background-color: rgb(0,151,236); 
     border:solid 2px white;
+}
+section{
+    background-color: white;
+    width: 40%; 
+    position: relative;
+    margin: 8vh 30%;
 }
