@@ -32,11 +32,14 @@ var myConnectionsRef = firebase.database().ref('users/count');
 var movesRef = firebase.database().ref("moves");
 //Remove ourselves from the array so that on disconnect we allow new people in
 myConnectionsRef.onDisconnect().set(2);
+movesRef.onDisconnect().remove();
 
 myConnectionsRef.on("value", function(snapshot) {
     counter = snapshot.val();
     if(counter == 2) {
+        //clearInterval(time);
         decrementedFlag = false;
+        initCalled = false;
     }
     if(counter > 0 && !decrementedFlag) {
         //get the count and decrement it before sending it back
@@ -54,9 +57,9 @@ movesRef.on("value", function(snapshot) {
     moves = snapshot.val();
     console.log(moves);
     if(counter < 1) {  
-        console.log("Evaluating Moves")
         if(moves != null && moves.length == 2) {
-            clearInterval(time);
+            initCalled = false;
+            console.log("Evaluating Moves")
             let opIndex;
             let index = Math.floor(moves.indexOf(myMove)+0.5);
             console.log("Index is: " + index);
@@ -110,12 +113,18 @@ movesRef.on("value", function(snapshot) {
 
             movesRef.remove();
             moves = [];
-            //init();
+            
+            if(!initCalled)
+            {    
+                init();
+            }
         }
     }
 });
 
 function init() {
+    console.log("in init");
+    //clearTimeout(time);
     rock = document.getElementById("rock");
     paper = document.getElementById("paper");
     sword = document.getElementById("sword");
@@ -123,25 +132,25 @@ function init() {
     paper.onclick = paperClick;
     rock.onclick = rockClick;
     initCalled = true;
-    time = setInterval(count, 1000);
+    //time = setInterval(count, 1000);
 }
 
 function swordClick() {
-    clearInterval(time);
+    //clearInterval(time);
     myMove="sword";
     clearClicks();
     pushMove(myMove);
 }
 
 function paperClick() {
-    clearInterval(time);
+    //clearInterval(time);
     myMove="paper";
     clearClicks();
     pushMove(myMove);
 }
 
 function rockClick() {
-    clearInterval(time);
+    //clearInterval(time);
     myMove="rock";
     clearClicks();
     pushMove(myMove);
@@ -169,6 +178,7 @@ function pushMove(move) {
 function count() {
     if(timer == 0)
     {
+        initCalled = false;
         clearInterval(time);
         rockClick();
     }
